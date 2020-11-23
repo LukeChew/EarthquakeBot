@@ -33,14 +33,25 @@ async def mag(ctx):
     await ctx.send(text)
 
 
+@client.command()
+async def biggest(ctx):
+    text="Magnitude and location of the biggest earthquake with magnitude 2.5 or greater in the past day:\n"
+    mag_high = 1
+    text = "" 
+    for i in quakes["features"]:
+        if i["properties"]["mag"] > mag_high:
+            mag_high = i["properties"]["mag"]
+            text = (str(i["properties"]["mag"])+" magnitude " + i["properties"]["place"] + "\n")
+    await ctx.send("Magnitude and location of the biggest earthquake with magnitude 2.5 or greater in the past day:\n" + text)
 
-
-
-
-
-
-
-
-
-
+@client.command()
+async def smallest(ctx):
+    text="Magnitude and location of the smallest earthquake with magnitude 2.5 or greater in the past day:\n"
+    mag_low = 100
+    text = "" 
+    for i in quakes["features"]:
+        if i["properties"]["mag"] < mag_low:
+            mag_low = i["properties"]["mag"]
+            text = (str(i["properties"]["mag"])+" magnitude " + i["properties"]["place"] + "\n")
+    await ctx.send("Magnitude and location of the smallest earthquake with magnitude 2.5 or greater in the past day:\n" + text)
 
